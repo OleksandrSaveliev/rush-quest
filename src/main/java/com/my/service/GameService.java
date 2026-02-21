@@ -8,7 +8,11 @@ import com.my.repository.GameNodeRepository;
 
 public class GameService {
 
-    private final GameNodeRepository repository = new GameNodeJsonRepository();
+    private final GameNodeRepository repository;
+
+    public GameService(GameNodeRepository repository) {
+        this.repository = repository;
+    }
 
     public GameState startGame() {
         GameNode startNode = repository.getNodeByKey("forestStart");
