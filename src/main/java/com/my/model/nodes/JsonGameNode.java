@@ -32,10 +32,4 @@ public class JsonGameNode implements GameNode {
         return transitions.getOrDefault(decision, "lose");
     }
 
-    @Override
-    public GameState toGameState() {
-        return new GameState(this);
-    }
-
-
 }

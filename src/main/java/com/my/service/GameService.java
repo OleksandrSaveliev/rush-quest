@@ -8,30 +8,36 @@ import com.my.repository.GameNodeRepository;
 
 public class GameService {
 
-    private final GameNodeRepository repository = new GameNodeJsonRepository();
+    private final GameNodeRepository repository;
+
+    public GameService(GameNodeRepository repository) {
+        this.repository = repository;
+    }
 
     public GameState startGame() {
         GameNode startNode = repository.getNodeByKey("forestStart");
         return new GameState(startNode);
     }
 
-    public GameState next(GameState current, String decision) {
-        GameNode currentNode = current.getCurrentNode();
+    public GameState next(GameState currentState, String decision) {
+        GameNode currentNode = currentState.getCurrentNode();
 
-        // Only move if there are options
-        if (!current.getOptions().isEmpty()) {
+        if (!currentState.getOptions().isEmpty()) {
             String nextKey = currentNode.nextNodeKey(decision);
             GameNode nextNode = repository.getNodeByKey(nextKey);
-            current.setCurrentNode(nextNode);
+            currentState.setCurrentNode(nextNode);
 
-            // Update status based on next node key
-            switch (nextKey.toLowerCase()) {
-                case "win" -> current.setStatus(GameStatus.WON);
-                case "lose" -> current.setStatus(GameStatus.LOST);
-                default -> current.setStatus(GameStatus.IN_PROGRESS);
-            }
+            setGameStatus(currentState, nextKey);
         }
 
-        return current;
+        return currentState;
+    }
+
+    private void setGameStatus(GameState current, String nextKey) {
+        switch (nextKey.toLowerCase()) {
+            case "win" -> current.setStatus(GameStatus.WON);
+            case "lose" -> current.setStatus(GameStatus.LOST);
+            default -> current.setStatus(GameStatus.IN_PROGRESS);
+        }
     }
 }

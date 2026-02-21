@@ -10,6 +10,4 @@ public interface GameNode {
     List<String> getOptions();
 
     String nextNodeKey(String decision);
-
-    GameState toGameState();
 }
