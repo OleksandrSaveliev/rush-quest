@@ -18,20 +18,22 @@ public class GameService {
     public GameState next(GameState current, String decision) {
         GameNode currentNode = current.getCurrentNode();
 
-        // Only move if there are options
         if (!current.getOptions().isEmpty()) {
             String nextKey = currentNode.nextNodeKey(decision);
             GameNode nextNode = repository.getNodeByKey(nextKey);
             current.setCurrentNode(nextNode);
 
-            // Update status based on next node key
-            switch (nextKey.toLowerCase()) {
-                case "win" -> current.setStatus(GameStatus.WON);
-                case "lose" -> current.setStatus(GameStatus.LOST);
-                default -> current.setStatus(GameStatus.IN_PROGRESS);
-            }
+            setGameStatus(current, nextKey);
         }
 
         return current;
+    }
+
+    private void setGameStatus(GameState current, String nextKey) {
+        switch (nextKey.toLowerCase()) {
+            case "win" -> current.setStatus(GameStatus.WON);
+            case "lose" -> current.setStatus(GameStatus.LOST);
+            default -> current.setStatus(GameStatus.IN_PROGRESS);
+        }
     }
 }
