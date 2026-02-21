@@ -6,24 +6,33 @@
 
 body {
     font-family: Arial, sans-serif;
-    color: white;
-}
-
-/* Fullscreen banner */
-.hero {
+    color: #ffffff;
     height: 100vh;
-    background: url("https://images.unsplash.com/photo-1503264116251-35a269479413") no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: url("../images/forest.avif") no-repeat center center/cover;
+    background-size: cover;
+    position: relative;
 }
 
-/* Dark overlay */
-.overlay {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 60px;
+/* Dark overlay for moodiness */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(27, 27, 47, 0.7); /* darker than before */
+    z-index: 0;
+}
+
+.hero {
+    position: relative;
+    z-index: 1;
     text-align: center;
+    padding: 60px;
+    background: rgba(46, 46, 77, 0.95); /* darker container */
     border-radius: 12px;
+    max-width: 700px;
 }
 
 .title {
@@ -35,12 +44,13 @@ body {
     font-size: 18px;
     margin-bottom: 40px;
     max-width: 600px;
+    line-height: 1.6;
 }
 
 .start-btn {
     text-decoration: none;
     background-color: #ff9800;
-    color: black;
+    color: #000000;
     padding: 15px 40px;
     font-size: 18px;
     font-weight: bold;
