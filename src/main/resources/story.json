@@ -1,0 +1,54 @@
+{
+  "forestStart": {
+    "story": "You arrive at the edge of a dark forest. The wind whispers through the tall trees, and a narrow path splits into three directions.",
+    "options": ["Enter the forest", "Go back to village", "Follow the river path"],
+    "transitions": {
+      "Enter the forest": "wolfEncounter",
+      "Go back to village": "lose",
+      "Follow the river path": "riverTreasure"
+    }
+  },
+  "wolfEncounter": {
+    "story": "As you walk deeper, a wolf leaps out from the shadows! Your heart races, and you must act quickly.",
+    "options": ["Climb a tree", "Stand your ground and fight", "Run back to the forest edge"],
+    "transitions": {
+      "Climb a tree": "forestEscape",
+      "Stand your ground and fight": "lose",
+      "Run back to the forest edge": "forestStart"
+    }
+  },
+  "forestEscape": {
+    "story": "You climb a sturdy tree just in time. The wolf prowls below but eventually leaves. From the tree, you see two paths ahead: deeper into the forest or toward the river.",
+    "options": ["Go deeper into the forest", "Head to the river"],
+    "transitions": {
+      "Go deeper into the forest": "ancientRuins",
+      "Head to the river": "riverTreasure"
+    }
+  },
+  "riverTreasure": {
+    "story": "Following the river, you discover a hidden treasure chest tucked beneath the rocks.",
+    "options": ["Open the chest", "Leave it and explore further"],
+    "transitions": {
+      "Open the chest": "win",
+      "Leave it and explore further": "forestStart"
+    }
+  },
+  "ancientRuins": {
+    "story": "You find ancient ruins hidden deep in the forest. The air is thick with mystery. Will you explore inside or retreat?",
+    "options": ["Explore the ruins", "Go back to forest edge"],
+    "transitions": {
+      "Explore the ruins": "win",
+      "Go back to forest edge": "forestStart"
+    }
+  },
+  "win": {
+    "story": "Congratulations! Your choices led you safely through the adventure, and you've discovered hidden wonders along the way.",
+    "options": [],
+    "transitions": {}
+  },
+  "lose": {
+    "story": "Alas, your adventure ends here. Sometimes the forest claims those who are unprepared.",
+    "options": [],
+    "transitions": {}
+  }
+}

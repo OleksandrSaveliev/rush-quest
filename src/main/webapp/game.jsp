@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,39 +14,51 @@
 
     <h1 class="game-title">Rush Quest</h1>
 
+    <!-- Dynamic Story -->
     <div class="story-box">
         <p>
-            You stand at the edge of a dark forest.
-            The wind whispers through the trees.
-            A narrow path splits into three directions.
-            Your adventure begins now...
+            <c:choose>
+                <c:when test="${not empty story}">
+                    ${story}
+                </c:when>
+                <c:otherwise>
+                    Welcome to Rush Quest! Your adventure begins now.
+                </c:otherwise>
+            </c:choose>
         </p>
     </div>
 
-    <form action="${pageContext.request.contextPath}/game" method="post" class="choices-form">
+    <!-- Check if game is over -->
+    <c:choose>
+        <c:when test="${status == 'WON'}">
+            <h2 class="game-result">🎉 You Won! Congratulations!</h2>
+            <a href="${pageContext.request.contextPath}/game" class="action-btn">Play Again</a>
+        </c:when>
 
-        <h2>What will you do?</h2>
+        <c:when test="${status == 'LOST'}">
+            <h2 class="game-result">💀 You Lost! Try again.</h2>
+            <a href="${pageContext.request.contextPath}/game" class="action-btn">Restart</a>
+        </c:when>
 
-        <label class="choice">
-            <input type="radio" name="decision" value="left" required>
-            Take the left path toward the river
-        </label>
+        <c:otherwise>
+            <!-- Game in progress: show choices -->
+            <form action="${pageContext.request.contextPath}/game" method="post" class="choices-form">
 
-        <label class="choice">
-            <input type="radio" name="decision" value="right">
-            Follow the right trail into the shadows
-        </label>
+                <h2>What will you do?</h2>
 
-        <label class="choice">
-            <input type="radio" name="decision" value="forward">
-            Move forward into the forest
-        </label>
+                <c:forEach var="option" items="${options}">
+                    <label class="choice">
+                        <input type="radio" name="decision" value="${option}" required>
+                        ${option}
+                    </label>
+                </c:forEach>
 
-        <button type="submit" class="action-btn">
-            Continue
-        </button>
-
-    </form>
+                <button type="submit" class="action-btn">
+                    Continue
+                </button>
+            </form>
+        </c:otherwise>
+    </c:choose>
 
 </div>
 

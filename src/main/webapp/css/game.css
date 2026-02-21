@@ -1,20 +1,32 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #1b1b2f;
+    background: url('../images/forest.avif') no-repeat center center/cover;
+    background-size: cover;
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(27, 27, 47, 0.7); /* same dark overlay */
+    z-index: 0;
 }
 
 .game-container {
     width: 700px;
-    background: #2e2e4d;
+    background: rgba(46, 46, 77, 0.95); /* darker container like welcome page */
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    position: relative;
 }
 
 .game-title {
@@ -24,7 +36,7 @@ body {
 }
 
 .story-box {
-    background: #3c3c66;
+    background: rgba(60, 60, 102, 0.9); /* darker story box */
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
