@@ -19,18 +19,18 @@ public class GameService {
         return new GameState(startNode);
     }
 
-    public GameState next(GameState current, String decision) {
-        GameNode currentNode = current.getCurrentNode();
+    public GameState next(GameState currentState, String decision) {
+        GameNode currentNode = currentState.getCurrentNode();
 
-        if (!current.getOptions().isEmpty()) {
+        if (!currentState.getOptions().isEmpty()) {
             String nextKey = currentNode.nextNodeKey(decision);
             GameNode nextNode = repository.getNodeByKey(nextKey);
-            current.setCurrentNode(nextNode);
+            currentState.setCurrentNode(nextNode);
 
-            setGameStatus(current, nextKey);
+            setGameStatus(currentState, nextKey);
         }
 
-        return current;
+        return currentState;
     }
 
     private void setGameStatus(GameState current, String nextKey) {
