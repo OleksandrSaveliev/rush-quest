@@ -1,6 +1,5 @@
 package com.my.model.nodes;
 
-import com.my.model.GameState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
