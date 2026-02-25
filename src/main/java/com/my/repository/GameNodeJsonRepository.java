@@ -25,7 +25,6 @@ public class GameNodeJsonRepository implements GameNodeRepository{
             Map<String, JsonGameNode> storyMap = mapper.readValue(is, new TypeReference<>() {});
 
             nodes.putAll(storyMap);
-
         } catch (Exception e) {
             throw new RuntimeException("Failed to load story.json", e);
         }
@@ -34,7 +33,9 @@ public class GameNodeJsonRepository implements GameNodeRepository{
     @Override
     public GameNode getNodeByKey(String key) {
         GameNode node = nodes.get(key);
-        if (node == null) throw new IllegalArgumentException("Unknown node: " + key);
+        if (node == null) {
+            throw new IllegalArgumentException("Unknown node: " + key);
+        }
         return node;
     }
 }
